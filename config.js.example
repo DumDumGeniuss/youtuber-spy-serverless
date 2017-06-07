@@ -1,0 +1,4 @@
+module.exports = {
+  youtube_app_key: 'aaa',
+  mongodb_url: 'xxx',
+};
