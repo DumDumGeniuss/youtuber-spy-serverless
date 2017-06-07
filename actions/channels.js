@@ -14,11 +14,12 @@ getConnection = function () {
 };
 
 exports.getChannels = function (request, response) {
+  let sort = request.query.sort || 'subscriberCount';
   let dbConnection;
   getConnection()
     .then((connection) => {
       dbConnection = connection;
-      return ChannelModel.find({})
+      return ChannelModel.find({}).sort({[sort]: 'desc'});
     })
     .then((channels) => {
       response.status(200).json(channels);
