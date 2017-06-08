@@ -15,11 +15,14 @@ getConnection = function () {
 
 exports.getChannels = function (request, response) {
   let sort = request.query.sort || 'subscriberCount';
+  let order = request.query.order || 'desc';
+  let page = parseInt(request.query.page || 1, 10);
+  let count = parseInt(request.query.count || 100, 10);
   let dbConnection;
   getConnection()
     .then((connection) => {
       dbConnection = connection;
-      return ChannelModel.find({}).sort({[sort]: 'desc'});
+      return ChannelModel.find({title: { $exists: true } }).sort({ [sort]: order }).skip((page - 1)*count).limit(count);;
     })
     .then((channels) => {
       response.status(200).json(channels);

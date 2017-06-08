@@ -1,3 +1,4 @@
+const videoAction = require('../actions/videos');
 const libs = require('../libs/routerHelper');
 
 module.exports = function (request, response) {
@@ -5,7 +6,7 @@ module.exports = function (request, response) {
 
   switch (restfulInfo.action) {
   	case 'query':
-  		response.status(200).send('query');
+  		videoAction.getVideos(request, response);
       break;
     case 'get':
       response.status(200).send('get');
